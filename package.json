@@ -1,0 +1,9 @@
+{
+  "name": "stepmania-song-parser",
+  "version": "0.0.1",
+  "description": "Parse StepMania song (.SM) files",
+  "devDependencies": {
+    "glob": "3.2.x",
+    "grunt": "0.4.x"
+  }
+}
