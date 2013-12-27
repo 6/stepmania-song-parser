@@ -7,7 +7,10 @@ module SmParser {
     MetadataSectionRegex = new RegExp('#[^;]+;', 'gm');
     MetadataLineRegex = new RegExp('#([a-z]+):([^;]+)?;$', 'i');
     NumericMetadata = ['offset', 'samplestart', 'samplelength'];
-    StringMetadata = ['title', 'subtitle', 'artist', 'titletranslit', 'subtitletranslit', 'artisttranslit', 'genre', 'credit', 'banner', 'background', 'lyricspath', 'cdtitle', 'music']
+    StringMetadata = ['title', 'subtitle', 'artist',
+      'titletranslit', 'subtitletranslit', 'artisttranslit',
+      'genre', 'credit', 'banner', 'background',
+      'lyricspath', 'cdtitle', 'music'];
 
     constructor(public metadata: string) {
       var metadataSections = metadata.match(this.MetadataSectionRegex);

@@ -6,7 +6,11 @@ var SmParser;
             this.MetadataSectionRegex = new RegExp('#[^;]+;', 'gm');
             this.MetadataLineRegex = new RegExp('#([a-z]+):([^;]+)?;$', 'i');
             this.NumericMetadata = ['offset', 'samplestart', 'samplelength'];
-            this.StringMetadata = ['title', 'subtitle', 'artist', 'titletranslit', 'subtitletranslit', 'artisttranslit', 'genre', 'credit', 'banner', 'background', 'lyricspath', 'cdtitle', 'music'];
+            this.StringMetadata = [
+                'title', 'subtitle', 'artist',
+                'titletranslit', 'subtitletranslit', 'artisttranslit',
+                'genre', 'credit', 'banner', 'background',
+                'lyricspath', 'cdtitle', 'music'];
             var metadataSections = metadata.match(this.MetadataSectionRegex);
             for (var i = 0; i < metadataSections.length; i++) {
                 var normalizedMetadata = this.normalizeMetadata(metadataSections[i]);
