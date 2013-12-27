@@ -41,8 +41,9 @@ module SmParser {
           this[propertyName] = numericPropertyValue;
         }
       }
-      else {
-        // TODO - handle complex properties here
+      else if (propertyName === "selectable") {
+        // Default value should be `true`
+        this[propertyName] = propertyValue !== "NO";
       }
     }
   }

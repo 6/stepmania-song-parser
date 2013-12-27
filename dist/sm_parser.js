@@ -35,7 +35,8 @@ var SmParser;
                 if (!isNaN(numericPropertyValue)) {
                     this[propertyName] = numericPropertyValue;
                 }
-            } else {
+            } else if (propertyName === "selectable") {
+                this[propertyName] = propertyValue !== "NO";
             }
         };
         return SongMetadata;

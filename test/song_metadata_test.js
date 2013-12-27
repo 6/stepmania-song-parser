@@ -19,6 +19,7 @@ describe("SongMetadata", function() {
       expect(subject.offset).toEqual(-0.003);
       expect(subject.samplestart).toEqual(50.603);
       expect(subject.samplelength).toEqual(12.3);
+      expect(subject.selectable).toBe(true);
     });
   });
 });
