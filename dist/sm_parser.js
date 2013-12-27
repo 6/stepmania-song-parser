@@ -3,17 +3,28 @@ var SmParser;
     var SongMetadata = (function () {
         function SongMetadata(metadata) {
             this.metadata = metadata;
+            this.MetadataSectionRegex = new RegExp('#[^;]+;', 'gm');
             this.MetadataLineRegex = new RegExp('#([a-z]+):([^;]+)?;$', 'i');
             this.NumericMetadata = ['offset', 'samplestart', 'samplelength'];
             this.StringMetadata = ['title', 'subtitle', 'artist', 'titletranslit', 'subtitletranslit', 'artisttranslit', 'genre', 'credit', 'banner', 'background', 'lyricspath', 'cdtitle', 'music'];
-            var metadataLines = metadata.split("\n");
-
-            for (var i = 0; i < metadataLines.length; i++) {
-                this.setMetadataProperty(metadataLines[i]);
+            var metadataSections = metadata.match(this.MetadataSectionRegex);
+            for (var i = 0; i < metadataSections.length; i++) {
+                var normalizedMetadata = this.normalizeMetadata(metadataSections[i]);
+                this.setMetadataProperty(normalizedMetadata);
             }
         }
         SongMetadata.prototype.isValid = function () {
             return true;
+        };
+
+        SongMetadata.prototype.normalizeMetadata = function (metadataSection) {
+            var metadataLines = metadataSection.split("\n");
+
+            for (var i = 0; i < metadataLines.length; i++) {
+                metadataLines[i] = metadataLines[i].replace(/\/\/.*$/, "");
+                metadataLines[i] = metadataLines[i].replace(/^\s+|\s+$/g, "");
+            }
+            return metadataLines.join("");
         };
 
         SongMetadata.prototype.setMetadataProperty = function (metadataLine) {

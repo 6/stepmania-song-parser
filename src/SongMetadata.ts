@@ -4,20 +4,31 @@ module SmParser {
   }
 
   export class SongMetadata implements ISongMetadata {
+    MetadataSectionRegex = new RegExp('#[^;]+;', 'gm');
     MetadataLineRegex = new RegExp('#([a-z]+):([^;]+)?;$', 'i');
     NumericMetadata = ['offset', 'samplestart', 'samplelength'];
     StringMetadata = ['title', 'subtitle', 'artist', 'titletranslit', 'subtitletranslit', 'artisttranslit', 'genre', 'credit', 'banner', 'background', 'lyricspath', 'cdtitle', 'music']
 
     constructor(public metadata: string) {
-      var metadataLines = metadata.split("\n");
-      // TODO - normalize multi-line properties
-      for(var i = 0; i < metadataLines.length; i++) {
-        this.setMetadataProperty(metadataLines[i]);
+      var metadataSections = metadata.match(this.MetadataSectionRegex);
+      for(var i = 0; i < metadataSections.length; i++) {
+        var normalizedMetadata = this.normalizeMetadata(metadataSections[i]);
+        this.setMetadataProperty(normalizedMetadata);
       }
     }
 
     isValid() {
       return true; // TODO - implement
+    }
+
+    private normalizeMetadata(metadataSection: string) {
+      var metadataLines = metadataSection.split("\n");
+      // Remove comments and trim
+      for(var i = 0; i < metadataLines.length; i++) {
+        metadataLines[i] = metadataLines[i].replace(/\/\/.*$/, "");
+        metadataLines[i] = metadataLines[i].replace(/^\s+|\s+$/g, "");
+      }
+      return metadataLines.join("");
     }
 
     private setMetadataProperty(metadataLine: string) {
