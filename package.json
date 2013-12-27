@@ -2,8 +2,16 @@
   "name": "stepmania-song-parser",
   "version": "0.0.1",
   "description": "Parse StepMania song (.SM) files",
+  "main": "index.js",
   "devDependencies": {
+    "karma-phantomjs-launcher": "0.1.x",
+    "karma-jasmine": "0.1.x",
     "glob": "3.2.x",
-    "grunt": "0.4.x"
+    "grunt": "0.4.x",
+    "grunt-ts": "1.5.x",
+    "grunt-contrib-watch": "0.5.x"
+  },
+  "scripts": {
+    "test": "karma start --single-run --browsers PhantomJS"
   }
 }

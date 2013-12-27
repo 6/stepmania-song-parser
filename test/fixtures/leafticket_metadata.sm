@@ -1,0 +1,21 @@
+#TITLE:Leaf Ticket;
+#SUBTITLE:パルフェ ～ショコラ second brew～ Re-order;
+#ARTIST:KOTOKO;
+#TITLETRANSLIT:Leaf Ticket;
+#SUBTITLETRANSLIT:Parfait Re-order;
+#ARTISTTRANSLIT:KOTOKO;
+#CREDIT:;
+#BANNER:Leaf ticket-banner.png;
+#BACKGROUND:Leaf ticket-bg.PNG;
+#LYRICSPATH:Leaf ticket.lrc;
+#CDTITLE:cdtitle.png;
+#MUSIC:Leaf ticket.ogg;
+#OFFSET:-0.155;
+#SAMPLESTART:83.487;
+#SAMPLELENGTH:12.000;
+#SELECTABLE:YES;
+#BPMS:0.000=118.000,248.000=59.000;
+#STOPS:;
+#BGCHANGES:-1.000=Opening.avi=1.000=1=0=0,
+99999=-nosongbg-=1.000=0=0=0 // don't automatically add -songbackground-
+;
