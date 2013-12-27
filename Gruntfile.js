@@ -33,21 +33,35 @@ module.exports = function(grunt) {
       },
       code: {
         src: ["src/**/*.ts"],
-        out: "dist/sm_parser.js"
+        out: "dist/sm_parser.dev.js"
+      }
+    },
+
+    uglify: {
+      code: {
+        files: {
+          'dist/sm_parser.js': ['dist/sm_parser.dev.js']
+        },
+        options: {
+          compress: true,
+          mangle: false,
+          preserveComments: false
+        }
       }
     },
 
     watch: {
       code: {
         files: ['src/**/*.ts'],
-        tasks: ['ts:code']
+        tasks: ['ts:code', 'uglify']
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-ts');
 
-  grunt.registerTask('compileTs', ['ts:code']);
+  grunt.registerTask('compileTs', ['ts:code', 'uglify']);
   grunt.registerTask('default', ['compileTs', 'watch']);
 };
