@@ -34,10 +34,6 @@ module.exports = function(grunt) {
       code: {
         src: ["src/**/*.ts"],
         out: "dist/sm_parser.js"
-      },
-      tests: {
-        src: ["test/**/*.ts"],
-        outDir: "test/compiled"
       }
     },
 
@@ -45,10 +41,6 @@ module.exports = function(grunt) {
       code: {
         files: ['src/**/*.ts'],
         tasks: ['ts:code']
-      },
-      tests: {
-        files: ["test/**/*.ts"],
-        tasks: ["ts:tests"]
       }
     }
   });
@@ -56,6 +48,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-ts');
 
-  grunt.registerTask('compileTs', ['ts:code', 'ts:tests']);
+  grunt.registerTask('compileTs', ['ts:code']);
   grunt.registerTask('default', ['compileTs', 'watch']);
 };
