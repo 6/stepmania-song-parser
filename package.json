@@ -2,7 +2,7 @@
   "name": "stepmania-song-parser",
   "version": "0.0.1",
   "description": "Parse StepMania song (.SM) files",
-  "main": "index.js",
+  "main": "dist/sm_parser.js",
   "devDependencies": {
     "karma-phantomjs-launcher": "0.1.x",
     "karma-jasmine": "0.1.x",
