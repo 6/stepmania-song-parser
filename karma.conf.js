@@ -14,7 +14,7 @@ module.exports = function(config) {
       'test/support/**/*.js',
       'test/fixtures/**/*.js',
       'test/**/*.js',
-      'dist/sm_parser.js'
+      'dist/sm_parser.dev.js'
     ],
 
 
