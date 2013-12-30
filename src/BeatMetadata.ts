@@ -48,4 +48,18 @@ module SmParser {
       return !isNaN(this.beat) && this.helpers.isPresent(this.value);
     }
   }
+
+  export class DisplayBpm implements IBeatMetadata {
+    beat: number;
+    value: number;
+
+    constructor(beat: string, displayBpm: string) {
+      this.beat = parseFloat(beat);
+      this.value = parseFloat(displayBpm);
+    }
+
+    isValid() {
+      return !isNaN(this.beat) && !isNaN(this.value) && this.beat >= 0 && this.value >= 0;
+    }
+  }
 }
