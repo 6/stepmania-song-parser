@@ -45,7 +45,7 @@ module SmParser {
     }
 
     isValid() {
-      return !isNaN(this.beat) && this.beat >= 0 && this.helpers.isPresent(this.value);
+      return !isNaN(this.beat) && this.helpers.isPresent(this.value);
     }
   }
 }

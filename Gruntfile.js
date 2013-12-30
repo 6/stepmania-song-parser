@@ -32,7 +32,8 @@ module.exports = function(grunt) {
         declaration: false
       },
       code: {
-        src: ["src/**/*.ts"],
+        // Specify in order of compilation
+        src: ["src/Collection.ts", "src/**/*.ts"],
         out: "dist/sm_parser.dev.js"
       }
     },
