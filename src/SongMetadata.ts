@@ -1,9 +1,12 @@
 module SmParser {
   export interface ISongMetadata {
+    helpers: IHelpers;
     isValid(): boolean;
   }
 
   export class SongMetadata implements ISongMetadata {
+    helpers: IHelpers;
+
     MetadataSectionRegex = new RegExp('#[^;]+;', 'gm');
     MetadataLineRegex = new RegExp('#([a-z]+):([^;]+)?;$', 'i');
     NumericMetadata = ['offset', 'samplestart', 'samplelength'];
@@ -13,6 +16,7 @@ module SmParser {
       'lyricspath', 'cdtitle', 'music'];
 
     constructor(public metadata: string) {
+      this.helpers = new SmParser.Helpers();
       var metadataSections = metadata.match(this.MetadataSectionRegex);
       for(var i = 0; i < metadataSections.length; i++) {
         var normalizedMetadata = this.normalizeMetadata(metadataSections[i]);
@@ -29,7 +33,7 @@ module SmParser {
       // Remove comments and trim
       for(var i = 0; i < metadataLines.length; i++) {
         metadataLines[i] = metadataLines[i].replace(/\/\/.*$/, "");
-        metadataLines[i] = metadataLines[i].replace(/^\s+|\s+$/g, "");
+        metadataLines[i] = this.helpers.trim(metadataLines[i]);
       }
       return metadataLines.join("");
     }
