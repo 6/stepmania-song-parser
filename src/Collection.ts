@@ -1,5 +1,6 @@
 module SmParser {
   export interface ICollection {
+    model: any;
     values: any;
     size(): number;
     isEmpty(): number;
@@ -9,7 +10,7 @@ module SmParser {
   export class Collection {
     public values: any;
 
-    constructor() {
+    constructor(public model: any) {
     }
 
     size() {
