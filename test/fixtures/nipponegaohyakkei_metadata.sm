@@ -73,4 +73,5 @@
 226.500=Nippon Egao Hyakkei - bg.png=1.000=0=0=1=====,
 99999=-nosongbg-=1.000=0=0=0 // don't automatically add -songbackground-
 ;
+#DISPLAYBPM:180.000:120.000:*;
 #KEYSOUNDS:;
