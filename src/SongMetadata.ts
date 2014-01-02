@@ -14,6 +14,12 @@ module SmParser {
       'titletranslit', 'subtitletranslit', 'artisttranslit',
       'genre', 'credit', 'banner', 'background',
       'lyricspath', 'cdtitle', 'music'];
+    CollectionMetadata = {
+      'bgchanges': SmParser.BackgroundChange,
+      'bpms': SmParser.Bpm,
+      'displaybpm': SmParser.DisplayBpm,
+      'stops': SmParser.Stop
+    };
 
     constructor(public metadata: string) {
       this.helpers = new SmParser.Helpers();
@@ -58,6 +64,10 @@ module SmParser {
         if (!isNaN(numericPropertyValue)) {
           this[propertyName] = numericPropertyValue;
         }
+      }
+      else if (this.CollectionMetadata[propertyName]) {
+        var model = this.CollectionMetadata[propertyName];
+        this[propertyName] = new SmParser.BeatMetadataCollection(model, propertyValue);
       }
       else if (propertyName === "selectable") {
         // Default value should be `true`

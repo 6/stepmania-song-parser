@@ -20,6 +20,10 @@ describe("SongMetadata", function() {
       expect(subject.samplestart).toEqual(50.603);
       expect(subject.samplelength).toEqual(12.3);
       expect(subject.selectable).toBe(true);
+      expect(subject.bgchanges.values.length).toEqual(3);
+      expect(subject.displaybpm.values.length).toEqual(3);
+      expect(subject.stops.values.length).toEqual(52);
+      expect(subject.bpms.values.length).toEqual(10);
     });
   });
 });
