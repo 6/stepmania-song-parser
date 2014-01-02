@@ -53,13 +53,27 @@ module SmParser {
     beat: number;
     value: number;
 
-    constructor(beat: string, displayBpm: string) {
-      this.beat = parseFloat(beat);
-      this.value = parseFloat(displayBpm);
+    constructor(displayBpm: string) {
+      if (displayBpm === "*") {
+        this.beat = null;
+        this.value = null;
+      }
+      else {
+        var bpm = parseFloat(displayBpm);
+        this.beat = bpm;
+        this.value = bpm;
+      }
+    }
+
+    isRandom() {
+      return this.value === null;
     }
 
     isValid() {
-      return !isNaN(this.beat) && !isNaN(this.value) && this.beat >= 0 && this.value >= 0;
+      if (this.isRandom()) {
+        return true;
+      }
+      return !isNaN(this.value) && this.value >= 0;
     }
   }
 }

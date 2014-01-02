@@ -51,4 +51,24 @@ describe("BeatMetadataCollection", function() {
       expect(subject.at(1).value).toEqual("-nosongbg-");
     });
   });
+
+  context("DisplayBpm", function() {
+    beforeEach(function() {
+      var displayBpmFixture = "180.000:120.000:*";
+      subject = new SmParser.BeatMetadataCollection(SmParser.DisplayBpm, displayBpmFixture);
+    });
+
+    it("parses the values correctly", function() {
+      expect(subject.size()).toEqual(3);
+
+      expect(subject.at(0).value).toEqual(180);
+      expect(subject.at(0).isRandom()).toBe(false);
+
+      expect(subject.at(1).value).toEqual(120);
+      expect(subject.at(1).isRandom()).toBe(false);
+
+      expect(subject.at(2).value).toBeFalsy();
+      expect(subject.at(2).isRandom()).toBe(true);
+    });
+  });
 });
