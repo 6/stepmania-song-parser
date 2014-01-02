@@ -64,5 +64,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-ts');
 
   grunt.registerTask('compileTs', ['ts:code', 'uglify']);
-  grunt.registerTask('default', ['compileTs', 'watch']);
+  grunt.registerTask('default', ['songFixturesToJs', 'compileTs', 'watch']);
 };
