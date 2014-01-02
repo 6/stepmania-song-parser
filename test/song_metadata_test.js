@@ -1,7 +1,7 @@
 describe("SongMetadata", function() {
   describe("initialization", function() {
     it("sets the properties correctly", function() {
-      var subject = new SmParser.SongMetadata(SongFixtures["nipponegaohyakkei_metadata.sm"]);
+      var subject = new SmParser.SongMetadata(SongFixtures["nipponegaohyakkei_song_metadata.sm"]);
 
       expect(subject.title).toEqual("Nippon Egao Hyakkei");
       expect(subject.subtitle).toEqual("Joshiraku ED (2012)");
