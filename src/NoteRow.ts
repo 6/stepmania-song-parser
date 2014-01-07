@@ -15,8 +15,7 @@ module SmParser {
     right: Note;
 
     constructor(data: string) {
-      var helpers = new SmParser.Helpers();
-      data = helpers.trim(data);
+      data = Helpers.trim(data);
       if(data.length !== 4) {
         return;
       }

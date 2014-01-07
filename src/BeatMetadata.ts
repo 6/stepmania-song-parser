@@ -34,18 +34,16 @@ module SmParser {
   }
 
   export class BackgroundChange implements IBeatMetadata {
-    helpers: IHelpers;
     beat: number;
     value: string;
 
     constructor(beat: string, backgroundName: string) {
-      this.helpers = new SmParser.Helpers();
       this.beat = parseFloat(beat);
       this.value = backgroundName;
     }
 
     isValid() {
-      return !isNaN(this.beat) && this.helpers.isPresent(this.value);
+      return !isNaN(this.beat) && Helpers.isPresent(this.value);
     }
   }
 

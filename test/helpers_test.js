@@ -1,7 +1,7 @@
 describe("Helpers", function() {
   var subject;
   beforeEach(function() {
-    subject = new SmParser.Helpers();
+    subject = SmParser.Helpers;
   });
 
   describe("#trim", function() {
