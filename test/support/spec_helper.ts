@@ -8,3 +8,5 @@ window['context'] = function() {
 window['ccontext'] = function() {
   window['ddescribe'].apply(this, arguments);
 };
+
+declare var SongFixtures;

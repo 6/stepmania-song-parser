@@ -1,9 +1,52 @@
 module SmParser {
   export interface ISongMetadata {
     isValid(): boolean;
+    title: string;
+    subtitle: string;
+    artist: string;
+    titletranslit: string;
+    subtitletranslit: string;
+    artisttranslit: string;
+    genre: string;
+    credit: string;
+    banner: string;
+    background: string;
+    lyricspath: string;
+    cdtitle: string;
+    music: string;
+    offset: number;
+    samplestart: number;
+    samplelength: number;
+    selectable: boolean;
+    bgchanges: any;
+    displaybpm: any;
+    stops: any;
+    bpms: any;
   }
 
   export class SongMetadata implements ISongMetadata {
+    title: string;
+    subtitle: string;
+    artist: string;
+    titletranslit: string;
+    subtitletranslit: string;
+    artisttranslit: string;
+    genre: string;
+    credit: string;
+    banner: string;
+    background: string;
+    lyricspath: string;
+    cdtitle: string;
+    music: string;
+    offset: number;
+    samplestart: number;
+    samplelength: number;
+    selectable: boolean;
+    bgchanges: any;
+    displaybpm: any;
+    stops: any;
+    bpms: any;
+
     MetadataSectionRegex = new RegExp('#[^;]+;', 'gm');
     MetadataLineRegex = new RegExp('#([a-z]+):([^;]+)?;$', 'i');
     NumericMetadata = ['offset', 'samplestart', 'samplelength'];
