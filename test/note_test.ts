@@ -37,7 +37,7 @@ describe("Note", function() {
       var subject = new SmParser.Note("X");
       expect(subject.isValid()).toBe(false);
 
-      subject = new SmParser.Stop(null);
+      subject = new SmParser.Note(null);
       expect(subject.isValid()).toBe(false);
     });
   });
