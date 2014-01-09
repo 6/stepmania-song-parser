@@ -1,3 +1,4 @@
 dist/sm_parser.dev.js
-test/fixtures/song_fixtures.js
+test/**/*.js
+src/**/*.js
 tscommand.tmp.txt

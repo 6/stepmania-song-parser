@@ -33,8 +33,11 @@ module.exports = function(grunt) {
       },
       code: {
         // Specify in order of compilation
-        src: ["src/Collection.ts", "src/**/*.ts"],
+        src: ["src/Application.ts"],
         out: "dist/sm_parser.dev.js"
+      },
+      tests: {
+        src: ["test/**/*.ts"]
       }
     },
 
@@ -55,6 +58,10 @@ module.exports = function(grunt) {
       code: {
         files: ['src/**/*.ts'],
         tasks: ['ts:code', 'uglify']
+      },
+      tests: {
+        files: ['test/**/*.ts'],
+        tasks: ['ts:tests']
       }
     }
   });
@@ -63,6 +70,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-ts');
 
-  grunt.registerTask('compileTs', ['ts:code', 'uglify']);
+  grunt.registerTask('compileTs', ['ts:code', 'uglify', 'ts:tests']);
   grunt.registerTask('default', ['songFixturesToJs', 'compileTs', 'watch']);
 };
