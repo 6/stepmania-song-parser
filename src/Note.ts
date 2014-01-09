@@ -19,7 +19,9 @@ module SmParser {
     type: string;
 
     constructor(public data: string) {
-      this.type = this.NoteTypes[data.toLocaleUpperCase()];
+      if (Helpers.presence(data)) {
+        this.type = this.NoteTypes[data.toLocaleUpperCase()];
+      }
     }
 
     isValid() {
