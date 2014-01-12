@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     return "(function() { "+ jsString +" })();\n";
   };
 
-  grunt.registerTask('songFixturesToJs', function() {
+  grunt.registerTask('songFixtures', function() {
     var fixturePaths = glob.sync('test/fixtures/**/*.sm');
     var fixtures = {};
     for (var i = 0; i < fixturePaths.length; i++) {
@@ -70,6 +70,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-ts');
 
-  grunt.registerTask('compileTs', ['ts:code', 'uglify', 'ts:tests']);
-  grunt.registerTask('default', ['songFixturesToJs', 'compileTs', 'watch']);
+  grunt.registerTask('typeScripts', ['ts:code', 'uglify', 'ts:tests']);
+  grunt.registerTask('default', ['songFixtures', 'typeScripts', 'watch']);
 };
