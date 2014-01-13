@@ -49,18 +49,24 @@ describe("Helpers", function() {
     });
   });
 
-  describe("#parseNumber", () => {
+  describe("number parsing methods", () => {
     it("returns the default value for a non-number", () => {
-      expect(subject.parseNumber("NaN", 123, parseFloat)).toEqual(123);
-      expect(subject.parseNumber(null, 123, parseInt)).toEqual(123);
-      expect(subject.parseNumber(true, 123, parseInt)).toEqual(123);
+      expect(subject.parseFloat("NaN")).toEqual(undefined);
+      expect(subject.parseFloat("NaN", {default: 123})).toEqual(123);
+      expect(subject.parseInt(null, {default: 123})).toEqual(123);
+      expect(subject.parseInt(true, {default: 123})).toEqual(123);
+    });
+
+    it('returns the default value if value exceeds min/max bounds', () => {
+      expect(subject.parseFloat("456.78", {max: 456, default: 123})).toEqual(123);
+      expect(subject.parseInt(456, {max: 500, min: 470})).toEqual(undefined);
     });
 
     it("returns the parsed number value for a number", () => {
-      expect(subject.parseNumber("456.78", 123, parseFloat)).toEqual(456.78);
-      expect(subject.parseNumber(456, 123, parseInt)).toEqual(456);
-      expect(subject.parseNumber("0", 123, parseInt)).toEqual(0);
-      expect(subject.parseNumber("0.123", 123, parseFloat)).toEqual(0.123);
+      expect(subject.parseFloat("456.78", {default: 123})).toEqual(456.78);
+      expect(subject.parseInt(456, {default: 123})).toEqual(456);
+      expect(subject.parseInt("0", {default: 123, min: -1, max: 1})).toEqual(0);
+      expect(subject.parseFloat("0.123", {default: 123})).toEqual(0.123);
     });
   });
 });

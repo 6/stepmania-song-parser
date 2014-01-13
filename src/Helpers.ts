@@ -16,12 +16,25 @@ module SmParser {
       return typeof Helpers.presence(value) !== "undefined";
     }
 
-    static parseNumber(value: any, defaultValue: number, parseFn: any) {
-      if (!Helpers.isPresent(value)) {
-        return defaultValue;
-      }
+    static parseInt(value: any, options: any) {
+      return Helpers.parseNumber(value, parseInt, options);
+    }
+
+    static parseFloat(value: any, options: any) {
+      return Helpers.parseNumber(value, parseFloat, options);
+    }
+
+    static parseNumber(value: any,  parseFn: any, options: any) {
+      options = options || {};
+      if (!Helpers.isPresent(value)) return options.default;
+
       value = parseFn(value);
-      return isNaN(value) ? defaultValue : value;
+
+      if (isNaN(value)) return options.default;
+      if (options.min && value < options.min) return options.default;
+      if (options.max && value > options.max) return options.default;
+
+      return value;
     }
   }
 }
