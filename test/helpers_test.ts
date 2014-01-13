@@ -49,6 +49,20 @@ describe("Helpers", function() {
     });
   });
 
+  describe("#isNaN", () => {
+    it("works better than the native isNaN", () => {
+      expect(subject.isNaN(undefined)).toBe(true);
+      expect(subject.isNaN("")).toBe(true);
+      expect(subject.isNaN("NaN")).toBe(true);
+      expect(subject.isNaN(null)).toBe(true);
+      expect(subject.isNaN("a1bc")).toBe(true);
+
+      expect(subject.isNaN(123)).toBe(false);
+      expect(subject.isNaN(0)).toBe(false);
+      expect(subject.isNaN(0.123)).toBe(false);
+    });
+  });
+
   describe("number parsing methods", () => {
     it("returns the default value for a non-number", () => {
       expect(subject.parseFloat("NaN")).toEqual(undefined);

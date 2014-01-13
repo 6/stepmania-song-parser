@@ -24,13 +24,17 @@ module SmParser {
       return Helpers.parseNumber(value, parseFloat, options);
     }
 
+    static isNaN(value: any) {
+      return !! (!Helpers.isPresent(value) || isNaN(value));
+    }
+
     static parseNumber(value: any,  parseFn: any, options: any) {
       options = options || {};
       if (!Helpers.isPresent(value)) return options.default;
 
       value = parseFn(value);
 
-      if (isNaN(value)) return options.default;
+      if (Helpers.isNaN(value)) return options.default;
       if (options.min && value < options.min) return options.default;
       if (options.max && value > options.max) return options.default;
 
