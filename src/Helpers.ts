@@ -15,5 +15,13 @@ module SmParser {
     static isPresent(value: any) {
       return typeof Helpers.presence(value) !== "undefined";
     }
+
+    static parseNumber(value: any, defaultValue: number, parseFn: any) {
+      if (!Helpers.isPresent(value)) {
+        return defaultValue;
+      }
+      value = parseFn(value);
+      return isNaN(value) ? defaultValue : value;
+    }
   }
 }

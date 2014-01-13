@@ -48,4 +48,19 @@ describe("Helpers", function() {
       expect(subject.isPresent(undefined)).toBe(false);
     });
   });
+
+  describe("#parseNumber", () => {
+    it("returns the default value for a non-number", () => {
+      expect(subject.parseNumber("NaN", 123, parseFloat)).toEqual(123);
+      expect(subject.parseNumber(null, 123, parseInt)).toEqual(123);
+      expect(subject.parseNumber(true, 123, parseInt)).toEqual(123);
+    });
+
+    it("returns the parsed number value for a number", () => {
+      expect(subject.parseNumber("456.78", 123, parseFloat)).toEqual(456.78);
+      expect(subject.parseNumber(456, 123, parseInt)).toEqual(456);
+      expect(subject.parseNumber("0", 123, parseInt)).toEqual(0);
+      expect(subject.parseNumber("0.123", 123, parseFloat)).toEqual(0.123);
+    });
+  });
 });
