@@ -91,4 +91,16 @@ describe("Helpers", function() {
       expect(subject.removeComments("not a comment // comment blah\n//another comment\nno comment\n//")).toEqual("not a comment\nno comment");
     });
   });
+
+  describe(".flattenSongFile", () => {
+    it("removes all extraneous spaces and newline characters", () => {
+      expect(subject.flattenSongFile("#NOTES:\n\tdance-single:\n   :\nEasy:0001\n,\n2021")).toEqual("#NOTES:dance-single::Easy:0001,2021");
+    });
+  });
+
+  describe(".preprocessSongFile", () => {
+    it("removes comments and flattens the song file", () => {
+      expect(subject.preprocessSongFile(SongFixtures['leafticket.sm'])).toEqual(SongFixtures['leafticket_flattened.sm']);
+    });
+  });
 });
