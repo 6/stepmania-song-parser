@@ -40,5 +40,35 @@ module SmParser {
 
       return value;
     }
+
+    static removeComments(song: string) {
+      var lines = song.split(/\n/);
+      var linesWithoutComments = [];
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].replace(/\s*\/\/.*$/, "");
+        if (Helpers.isPresent(line)) {
+          linesWithoutComments.push(line);
+        }
+      }
+      return linesWithoutComments.join("\n");
+    }
+
+    // Run this only after stripping all comments
+    static flattenSongFile(song: string) {
+      var lines = song.split(/\n/);
+      var flattenedLines = [];
+      for (var i = 0; i < lines.length; i++) {
+        var line = Helpers.trim(lines[i]);
+        if (Helpers.isPresent(line)) {
+          flattenedLines.push(line);
+        }
+      }
+      return flattenedLines.join("");
+    }
+
+    static preprocessSongFile(song: string) {
+      song = Helpers.removeComments(song);
+      return Helpers.flattenSongFile(song);
+    }
   }
 }
