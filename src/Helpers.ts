@@ -40,5 +40,17 @@ module SmParser {
 
       return value;
     }
+
+    static removeComments(song: string) {
+      var lines = song.split(/\n/);
+      var linesWithoutComments = [];
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].replace(/\s*\/\/.*$/, "");
+        if (Helpers.isPresent(line)) {
+          linesWithoutComments.push(line);
+        }
+      }
+      return linesWithoutComments.join("\n");
+    }
   }
 }
