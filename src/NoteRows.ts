@@ -50,7 +50,7 @@ module SmParser {
         this.notesType = this.DefaultNoteType;
       }
 
-      this.description = noteSections[1];
+      this.description = Helpers.trim(noteSections[1]);
 
       this.difficultyClass = noteSections[2];
       if (this.DifficultyClasses.indexOf(this.difficultyClass) < 0) {
