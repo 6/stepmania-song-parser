@@ -1,5 +1,6 @@
 module SmParser {
   export interface IBeatMetadataCollection extends ICollection {
+    asJson(): any;
     model: any;
   }
 
@@ -12,6 +13,14 @@ module SmParser {
       else {
         this.values = this.parseValuesString(valuesString);
       }
+    }
+
+    asJson() {
+      var json = [];
+      for(var i = 0; i < this.values.length; i++) {
+        json.push(this.values[i].asJson());
+      }
+      return json;
     }
 
     private parseValuesString(valuesString: string) {

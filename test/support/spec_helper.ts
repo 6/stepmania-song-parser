@@ -10,3 +10,4 @@ window['ccontext'] = function() {
 };
 
 declare var SongFixtures;
+declare var SongsAsJson;

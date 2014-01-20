@@ -3,5 +3,7 @@
 /// <reference path="BeatMetadataCollection.ts" />
 /// <reference path="Note.ts" />
 /// <reference path="NoteRow.ts" />
+/// <reference path="NoteRows.ts" />
 /// <reference path="SongMetadata.ts" />
+/// <reference path="Song.ts" />
 /// <reference path="Helpers.ts" />
