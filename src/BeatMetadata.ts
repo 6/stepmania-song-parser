@@ -3,6 +3,7 @@ module SmParser {
     beat: number;
     value: any;
     isValid(): boolean;
+    asJson(): any;
   }
 
   export class Bpm implements IBeatMetadata {
@@ -16,6 +17,13 @@ module SmParser {
 
     isValid() {
       return !isNaN(this.beat) && !isNaN(this.value) && this.beat >= 0 && this.value > 0;
+    }
+
+    asJson() {
+      return {
+        beat: this.beat,
+        value: this.value
+      }
     }
   }
 
@@ -31,6 +39,13 @@ module SmParser {
     isValid() {
       return !isNaN(this.beat) && !isNaN(this.value) && this.beat >= 0 && this.value >= 0;
     }
+
+    asJson() {
+      return {
+        beat: this.beat,
+        value: this.value
+      }
+    }
   }
 
   export class BackgroundChange implements IBeatMetadata {
@@ -44,6 +59,13 @@ module SmParser {
 
     isValid() {
       return !isNaN(this.beat) && Helpers.isPresent(this.value);
+    }
+
+    asJson() {
+      return {
+        beat: this.beat,
+        value: this.value
+      }
     }
   }
 
@@ -60,6 +82,14 @@ module SmParser {
         var bpm = parseFloat(displayBpm);
         this.beat = bpm;
         this.value = bpm;
+      }
+    }
+
+    asJson() {
+      return {
+        isRandom: this.isRandom(),
+        beat: this.beat,
+        value: this.value
       }
     }
 

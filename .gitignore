@@ -1,4 +1,5 @@
 dist/sm_parser.dev.js
 test/**/*.js
+!test/fixtures/songs_as_json.js
 src/**/*.js
 tscommand.tmp.txt

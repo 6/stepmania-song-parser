@@ -1,0 +1,3 @@
+window.SongsAsJson = {
+  "leafticket.sm": { metadata : { title : 'Leaf Ticket', subtitle : 'パルフェ ～ショコラ second brew～ Re-order', artist : 'KOTOKO', titletranslit : 'Leaf Ticket', subtitletranslit : 'Parfait Re-order', artisttranslit : 'KOTOKO', genre : undefined, credit : undefined, banner : 'Leaf ticket-banner.png', background : 'Leaf ticket-bg.PNG', lyricspath : 'Leaf ticket.lrc', cdtitle : 'cdtitle.png', music : 'Leaf ticket.ogg', offset : -0.155, samplestart : 83.487, samplelength : 12, selectable : true, bgchanges : [ { beat : -1, value : 'Opening.avi' }, { beat : 99999, value : '-nosongbg-' } ], bpms : [ { beat : 0, value : 118 }, { beat : 248, value : 59 } ] } }
+};

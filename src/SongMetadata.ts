@@ -1,6 +1,7 @@
 module SmParser {
   export interface ISongMetadata {
     isValid(): boolean;
+    asJson(): any;
     title: string;
     subtitle: string;
     artist: string;
@@ -71,6 +72,34 @@ module SmParser {
 
     isValid() {
       return true; // TODO - implement
+    }
+
+    asJson() {
+      var json = {
+        title: this.title,
+        subtitle: this.subtitle,
+        artist: this.artist,
+        titletranslit: this.titletranslit,
+        subtitletranslit: this.subtitletranslit,
+        artisttranslit: this.artisttranslit,
+        genre: this.genre,
+        credit: this.credit,
+        banner: this.banner,
+        background: this.background,
+        lyricspath: this.lyricspath,
+        cdtitle: this.cdtitle,
+        music: this.music,
+        offset: this.offset,
+        samplestart: this.samplestart,
+        samplelength: this.samplelength,
+        selectable: this.selectable
+      }
+      for(var key in this.CollectionMetadata) {
+        if (Helpers.isPresent(this[key])) {
+          json[key] = this[key].asJson();
+        }
+      }
+      return json;
     }
 
     private normalizeMetadata(metadataSection: string) {
