@@ -11,12 +11,12 @@ module SmParser {
     value: number;
 
     constructor(beat: string, bpm: string) {
-      this.beat = parseFloat(beat);
-      this.value = parseFloat(bpm);
+      this.beat = Helpers.parseFloat(beat);
+      this.value = Helpers.parseFloat(bpm);
     }
 
     isValid() {
-      return !isNaN(this.beat) && !isNaN(this.value) && this.beat >= 0 && this.value > 0;
+      return !Helpers.isNaN(this.beat) && !Helpers.isNaN(this.value) && this.beat >= 0 && this.value > 0;
     }
 
     asJson() {
@@ -32,12 +32,12 @@ module SmParser {
     value: number;
 
     constructor(beat: string, duration: string) {
-      this.beat = parseFloat(beat);
-      this.value = parseFloat(duration);
+      this.beat = Helpers.parseFloat(beat);
+      this.value = Helpers.parseFloat(duration);
     }
 
     isValid() {
-      return !isNaN(this.beat) && !isNaN(this.value) && this.beat >= 0 && this.value >= 0;
+      return !Helpers.isNaN(this.beat) && !Helpers.isNaN(this.value) && this.beat >= 0 && this.value >= 0;
     }
 
     asJson() {
@@ -53,12 +53,12 @@ module SmParser {
     value: string;
 
     constructor(beat: string, backgroundName: string) {
-      this.beat = parseFloat(beat);
+      this.beat = Helpers.parseFloat(beat);
       this.value = backgroundName;
     }
 
     isValid() {
-      return !isNaN(this.beat) && Helpers.isPresent(this.value);
+      return !Helpers.isNaN(this.beat) && Helpers.isPresent(this.value);
     }
 
     asJson() {
@@ -79,7 +79,7 @@ module SmParser {
         this.value = null;
       }
       else {
-        var bpm = parseFloat(displayBpm);
+        var bpm = Helpers.parseFloat(displayBpm);
         this.beat = bpm;
         this.value = bpm;
       }
@@ -101,7 +101,7 @@ module SmParser {
       if (this.isRandom()) {
         return true;
       }
-      return !isNaN(this.value) && this.value >= 0;
+      return !Helpers.isNaN(this.value) && this.value >= 0;
     }
   }
 }
