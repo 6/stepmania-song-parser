@@ -61,6 +61,9 @@ module SmParser {
       'displaybpm': SmParser.DisplayBpm,
       'stops': SmParser.Stop
     };
+    RequiredFields = [
+      'title', 'offset', 'samplestart', 'selectable'
+    ];
 
     constructor(public metadata: string) {
       var metadataSections = metadata.match(this.MetadataSectionRegex);
@@ -70,7 +73,14 @@ module SmParser {
     }
 
     isValid() {
-      return true; // TODO - implement
+      for(var key in this.CollectionMetadata) {
+        if (Helpers.isPresent(this[key]) && !this[key].isValid()) {
+          return false;
+        }
+      }
+      return Helpers.all(this.RequiredFields, (field) => {
+        return Helpers.isPresent(this[field]);
+      });
     }
 
     asJson() {

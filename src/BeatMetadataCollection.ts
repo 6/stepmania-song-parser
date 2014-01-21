@@ -1,5 +1,6 @@
 module SmParser {
   export interface IBeatMetadataCollection extends ICollection {
+    isValid(): boolean;
     asJson(): any;
     model: any;
   }
@@ -13,6 +14,12 @@ module SmParser {
       else {
         this.values = this.parseValuesString(valuesString);
       }
+    }
+
+    isValid() {
+      return Helpers.all(this.values, (value) => {
+        return value.isValid();
+      });
     }
 
     asJson() {
