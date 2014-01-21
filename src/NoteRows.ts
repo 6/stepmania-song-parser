@@ -39,7 +39,7 @@ module SmParser {
 
     constructor(public data: string) {
       super(SmParser.Note);
-      var noteSections = data.split(/:/gm);
+      var noteSections = data.split(/:/g);
 
       this.notesType = noteSections[0];
       if (this.NoteTypes.indexOf(this.notesType) < 0) {

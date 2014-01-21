@@ -48,7 +48,7 @@ module SmParser {
     stops: any;
     bpms: any;
 
-    MetadataSectionRegex = new RegExp('#[^;]+;', 'gm');
+    MetadataSectionRegex = new RegExp('#[^;]+;', 'g');
     MetadataLineRegex = new RegExp('#([a-z]+):([^;]+)?;$', 'i');
     NumericMetadata = ['offset', 'samplestart', 'samplelength'];
     StringMetadata = ['title', 'subtitle', 'artist',
@@ -65,8 +65,7 @@ module SmParser {
     constructor(public metadata: string) {
       var metadataSections = metadata.match(this.MetadataSectionRegex);
       for(var i = 0; i < metadataSections.length; i++) {
-        var normalizedMetadata = this.normalizeMetadata(metadataSections[i]);
-        this.setMetadataProperty(normalizedMetadata);
+        this.setMetadataProperty(metadataSections[i]);
       }
     }
 
@@ -100,16 +99,6 @@ module SmParser {
         }
       }
       return json;
-    }
-
-    private normalizeMetadata(metadataSection: string) {
-      var metadataLines = metadataSection.split("\n");
-      // Remove comments and trim
-      for(var i = 0; i < metadataLines.length; i++) {
-        metadataLines[i] = metadataLines[i].replace(/\/\/.*$/, "");
-        metadataLines[i] = Helpers.trim(metadataLines[i]);
-      }
-      return metadataLines.join("");
     }
 
     private setMetadataProperty(metadataLine: string) {
