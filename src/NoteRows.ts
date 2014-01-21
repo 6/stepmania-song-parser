@@ -39,11 +39,7 @@ module SmParser {
 
     constructor(public data: string) {
       super(SmParser.Note);
-      // TODO strip all comments before all parsing
       var noteSections = data.split(/:/gm);
-      if (noteSections[0].match(/^#NOTES/)) {
-        noteSections.shift();
-      }
 
       this.notesType = noteSections[0];
       if (this.NoteTypes.indexOf(this.notesType) < 0) {
@@ -67,6 +63,24 @@ module SmParser {
       this.radarValueAir = Helpers.parseFloat(radars[4], {default: this.DefaultRadarValue});
 
       this.values = this.parseNotes(noteSections[noteSections.length - 1]);
+    }
+
+    asJson() {
+      return {
+        notesType: this.notesType,
+        description: this.description,
+        difficultyClass: this.difficultyClass,
+        difficultyMeter: this.difficultyMeter,
+        radarValueVoltage: this.radarValueVoltage,
+        radarValueStream: this.radarValueStream,
+        radarValueChaos: this.radarValueChaos,
+        radarValueFreeze: this.radarValueFreeze,
+        radarValueAir: this.radarValueAir
+      }
+    }
+
+    isValid() {
+      return true; // TODO - implement
     }
 
     private parseNotes(rawNotesData: string) {

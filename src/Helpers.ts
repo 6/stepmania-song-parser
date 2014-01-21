@@ -16,6 +16,21 @@ module SmParser {
       return typeof Helpers.presence(value) !== "undefined";
     }
 
+    static map(list: any, cb: any) {
+      var newList = [];
+      for(var i = 0; i < list.length; i++) {
+        newList.push(cb(list[i]));
+      }
+      return newList;
+    }
+
+    static all(list: any, cb: any) {
+      for(var i = 0; i < list.length; i++) {
+        if (!cb(list[i])) return false;
+      }
+      return true;
+    }
+
     static parseInt(value: any, options: any) {
       return Helpers.parseNumber(value, parseInt, options);
     }
