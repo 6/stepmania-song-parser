@@ -31,11 +31,11 @@ module SmParser {
       return true;
     }
 
-    static parseInt(value: any, options: any) {
+    static parseInt(value: any, options?: any) {
       return Helpers.parseNumber(value, parseInt, options);
     }
 
-    static parseFloat(value: any, options: any) {
+    static parseFloat(value: any, options?: any) {
       return Helpers.parseNumber(value, parseFloat, options);
     }
 
@@ -43,7 +43,7 @@ module SmParser {
       return !! (!Helpers.isPresent(value) || isNaN(value));
     }
 
-    static parseNumber(value: any,  parseFn: any, options: any) {
+    static parseNumber(value: any,  parseFn: any, options?: any) {
       options = options || {};
       if (!Helpers.isPresent(value)) return options.default;
 
