@@ -4,7 +4,7 @@ describe("Helpers", function() {
     subject = SmParser.Helpers;
   });
 
-  describe("#trim", function() {
+  describe(".trim", function() {
     it("trims the whitespace surrounding a string", function() {
       expect(subject.trim("  abc  ")).toEqual("abc");
       expect(subject.trim("abc  ")).toEqual("abc");
@@ -19,7 +19,7 @@ describe("Helpers", function() {
     });
   });
 
-  describe("#presence", function() {
+  describe(".presence", function() {
     it("returns the value if present", function() {
       expect(subject.presence("abc")).toEqual("abc");
       expect(subject.presence(false)).toEqual(false);
@@ -34,7 +34,7 @@ describe("Helpers", function() {
     });
   });
 
-  describe("#isPresent", function() {
+  describe(".isPresent", function() {
     it("returns true if present", function() {
       expect(subject.isPresent("abc")).toBe(true);
       expect(subject.isPresent(false)).toBe(true);
@@ -49,7 +49,7 @@ describe("Helpers", function() {
     });
   });
 
-  describe("#isNaN", () => {
+  describe(".isNaN", () => {
     it("works better than the native isNaN", () => {
       expect(subject.isNaN(undefined)).toBe(true);
       expect(subject.isNaN("")).toBe(true);
