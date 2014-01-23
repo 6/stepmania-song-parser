@@ -49,6 +49,29 @@ describe("Helpers", function() {
     });
   });
 
+  describe(".map", () => {
+    it("applies the callback function to each element in the list", () => {
+      var values = subject.map([1, 2, 3], (value) => {
+        return value * 2;
+      });
+      expect(values).toEqual([2, 4, 6]);
+    });
+  });
+
+  describe(".all", () => {
+    it("returns true if the callback function returns true for all values, and false if it does not", () => {
+      var areAllEven = subject.all([2, 6, 4], (value) => {
+        return value % 2 == 0;
+      });
+      expect(areAllEven).toBe(true);
+
+      var areAllEven = subject.all([2, 3, 4], (value) => {
+        return value % 2 == 0;
+      });
+      expect(areAllEven).toBe(false);
+    });
+  });
+
   describe(".isNaN", () => {
     it("works better than the native isNaN", () => {
       expect(subject.isNaN(undefined)).toBe(true);
