@@ -16,6 +16,17 @@ module SmParser {
       return typeof Helpers.presence(value) !== "undefined";
     }
 
+    static objectKeys(obj: any) {
+      if(Object.keys) {
+        return Object.keys(obj);
+      }
+      var keys = [];
+      for (var key in obj) {
+        keys.hasOwnProperty.call(obj, key) && keys.push(key);
+      }
+      return keys;
+    }
+
     static map(list: any, cb: any) {
       var newList = [];
       for(var i = 0; i < list.length; i++) {
