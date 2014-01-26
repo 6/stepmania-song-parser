@@ -85,8 +85,53 @@ module SmParser {
       return true; // TODO - implement
     }
 
+    // TODO - refactor this method, it's way too complex
     private parseNotes(rawNotesData: string) {
+      var measures = rawNotesData.split(/,/g);
+      var notes = [];
+      var notesPerRow = this.NotesPerRow[this.notesType];
+      var notesRegex = new RegExp(".{"+notesPerRow+"}", "g");
+      var holdBeginTime, currentTime;
 
+      for(var noteIndex = 0; noteIndex < notesPerRow; noteIndex++) {
+        currentTime = 0;
+        for(var measureIndex = 0; measureIndex < measures.length; measureIndex++) {
+          var measure = measures[measureIndex];
+          for(var rowIndex = 0; rowIndex < measure.length; rowIndex++) {
+            var note = new Note(measure[rowIndex][noteIndex]);
+            if (!note.isValid() || note.type === "NoNote") {
+              continue;
+            }
+            if (note.type == "HoldBeginNote") {
+              holdBeginTime = Number(currentTime);
+              continue;
+            }
+            var noteData;
+            if (note.type == "HoldEndNote") {
+              noteData = {
+                index: noteIndex,
+                type: "Hold",
+                time: holdBeginTime,
+                duration: currentTime - holdBeginTime
+              };
+            }
+            else {
+              noteData = {
+                index: noteIndex,
+                type: note.type,
+                time: currentTime,
+                duration: 0
+              };
+            }
+            notes.push(noteData);
+          }
+          currentTime += (1 / measure.length);
+        }
+      }
+
+      console.log(notes);
+
+      return notes;
     }
   }
 }
