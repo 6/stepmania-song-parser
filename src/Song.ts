@@ -1,45 +1,107 @@
 module SmParser {
-  export class Song {
-    songMetadata: ISongMetadata;
-    notes: any;
+  export class Song extends Collection {
+    notesType: string;
+    description: string;
+    difficultyClass: string;
+    difficultyMeter: number;
+    radarValueVoltage: number;
+    radarValueStream: number;
+    radarValueChaos: number;
+    radarValueFreeze: number;
+    radarValueAir: number;
 
-    constructor(public songString: string) {
-      this.songString = Helpers.preprocessSongFile(songString);
-      this.initializeSongMetadata();
-      this.initializeNotes();
+    NotesPerRow = {
+      'dance-single': 4,
+      'dance-double': 8,
+      'dance-couple': 8,
+      'dance-solo': 6,
+      'pump-single': 5,
+      'pump-double': 10,
+      'pump-couple': 10,
+      'ez2-single': 5,
+      'ez2-double': 10,
+      'ez2-real': 7,
+      'para-single': 5
+    };
+
+    NoteTypes = Helpers.objectKeys(this.NotesPerRow);
+
+    DifficultyClasses = [
+      "beginner",
+      "easy",
+      "medium",
+      "hard",
+      "challenge"
+    ];
+
+    DefaultNoteType = 'dance-single';
+    DefaultDifficultyClass = 'beginner';
+    DefaultDifficultyMeter = 1;
+    DefaultRadarValue = 1;
+
+    constructor(public data: string) {
+      super(SmParser.Note);
+      var noteSections = data.split(/:/g);
+
+      this.notesType = noteSections[0];
+      if (this.NoteTypes.indexOf(this.notesType) < 0) {
+        this.notesType = this.DefaultNoteType;
+      }
+
+      this.description = Helpers.trim(noteSections[1]);
+
+      this.difficultyClass = noteSections[2];
+      if (this.DifficultyClasses.indexOf(this.difficultyClass) < 0) {
+        this.difficultyClass = this.DefaultDifficultyClass;
+      }
+
+      this.difficultyMeter = Helpers.parseInt(noteSections[3], {default: this.DefaultDifficultyMeter});
+
+      var radars = noteSections[4].split(/,/gm);
+      this.radarValueVoltage = Helpers.parseFloat(radars[0], {default: this.DefaultRadarValue});
+      this.radarValueStream = Helpers.parseFloat(radars[1], {default: this.DefaultRadarValue});
+      this.radarValueChaos = Helpers.parseFloat(radars[2], {default: this.DefaultRadarValue});
+      this.radarValueFreeze = Helpers.parseFloat(radars[3], {default: this.DefaultRadarValue});
+      this.radarValueAir = Helpers.parseFloat(radars[4], {default: this.DefaultRadarValue});
+
+      this.values = this.parseMeasures(noteSections[noteSections.length - 1]);
     }
 
     asJson() {
-      var notesJson = [];
-      for(var i = 0; i < this.notes.length; i++) {
-        notesJson.push(this.notes[i].asJson());
-      }
       return {
-        metadata: this.songMetadata.asJson(),
-        notes: Helpers.map(this.notes, (noteRows) => {
-          return noteRows.asJson();
-        })
+        notesType: this.notesType,
+        description: this.description,
+        difficultyClass: this.difficultyClass,
+        difficultyMeter: this.difficultyMeter,
+        radarValueVoltage: this.radarValueVoltage,
+        radarValueStream: this.radarValueStream,
+        radarValueChaos: this.radarValueChaos,
+        radarValueFreeze: this.radarValueFreeze,
+        radarValueAir: this.radarValueAir,
+        measures: this.measuresAsJson()
       }
     }
 
     isValid() {
-      return this.songMetadata.isValid() && Helpers.all(this.notes, (noteRows) => {
-        return noteRows.isValid();
-      });
+      return true; // TODO - implement
     }
 
-    private initializeSongMetadata() {
-      var songMetadataString = this.songString.split(/#NOTES/)[0];
-      this.songMetadata = new SongMetadata(songMetadataString);
-    }
-
-    private initializeNotes() {
-      this.notes = [];
-      var notesSections = this.songString.split(/#NOTES:/);
-      notesSections.shift();
-      for(var i = 0; i < notesSections.length; i++) {
-        this.notes.push(new NoteRows(notesSections[i]));
+    private parseMeasures(rawNotesData: string) {
+      var measures = rawNotesData.split(/,/g);
+      var parsedMeasures = [];
+      var notesPerRow = this.NotesPerRow[this.notesType];
+      for(var i = 0; i < measures.length; i++) {
+        parsedMeasures.push(new Measure(notesPerRow, measures[i]));
       }
+      return parsedMeasures;
+    }
+
+    private measuresAsJson() {
+      var json = [];
+      for(var i = 0; i < this.values.length; i ++) {
+        json.push(this.values[i].asJson());
+      }
+      return json;
     }
   }
 }
