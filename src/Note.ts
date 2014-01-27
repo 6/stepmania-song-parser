@@ -1,6 +1,9 @@
 module SmParser {
   export interface INote {
     type: string;
+    index: number;
+    position: number;
+    typeAbbreviation: string;
     isValid(): boolean;
   }
 
@@ -14,18 +17,28 @@ module SmParser {
       "M": "Mine",
       "L": "Lift",
       "F": "Fake"
-    }
+    };
 
+    typeAbbreviation: string;
     type: string;
 
-    constructor(public data: string) {
+    constructor(public data: string, public index?: number, public position?: number) {
       if (Helpers.presence(data)) {
-        this.type = this.NoteTypes[data.toLocaleUpperCase()];
+        this.typeAbbreviation = data.toLocaleUpperCase();
+        this.type = this.NoteTypes[this.typeAbbreviation];
       }
     }
 
     isValid() {
       return typeof this.type !== "undefined";
+    }
+
+    asJson() {
+      return {
+        type: this.typeAbbreviation,
+        index: this.index,
+        position: this.position
+      };
     }
   }
 }

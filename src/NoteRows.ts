@@ -64,7 +64,7 @@ module SmParser {
       this.radarValueFreeze = Helpers.parseFloat(radars[3], {default: this.DefaultRadarValue});
       this.radarValueAir = Helpers.parseFloat(radars[4], {default: this.DefaultRadarValue});
 
-      this.values = this.parseNotes(noteSections[noteSections.length - 1]);
+      this.values = this.parseMeasures(noteSections[noteSections.length - 1]);
     }
 
     asJson() {
@@ -77,7 +77,8 @@ module SmParser {
         radarValueStream: this.radarValueStream,
         radarValueChaos: this.radarValueChaos,
         radarValueFreeze: this.radarValueFreeze,
-        radarValueAir: this.radarValueAir
+        radarValueAir: this.radarValueAir,
+        measures: this.measuresAsJson()
       }
     }
 
@@ -85,53 +86,22 @@ module SmParser {
       return true; // TODO - implement
     }
 
-    // TODO - refactor this method, it's way too complex
-    private parseNotes(rawNotesData: string) {
+    private parseMeasures(rawNotesData: string) {
       var measures = rawNotesData.split(/,/g);
-      var notes = [];
+      var parsedMeasures = [];
       var notesPerRow = this.NotesPerRow[this.notesType];
-      var notesRegex = new RegExp(".{"+notesPerRow+"}", "g");
-      var holdBeginTime, currentTime;
-
-      for(var noteIndex = 0; noteIndex < notesPerRow; noteIndex++) {
-        currentTime = 0;
-        for(var measureIndex = 0; measureIndex < measures.length; measureIndex++) {
-          var measure = measures[measureIndex];
-          for(var rowIndex = 0; rowIndex < measure.length; rowIndex++) {
-            var note = new Note(measure[rowIndex][noteIndex]);
-            if (!note.isValid() || note.type === "NoNote") {
-              continue;
-            }
-            if (note.type == "HoldBeginNote") {
-              holdBeginTime = Number(currentTime);
-              continue;
-            }
-            var noteData;
-            if (note.type == "HoldEndNote") {
-              noteData = {
-                index: noteIndex,
-                type: "Hold",
-                time: holdBeginTime,
-                duration: currentTime - holdBeginTime
-              };
-            }
-            else {
-              noteData = {
-                index: noteIndex,
-                type: note.type,
-                time: currentTime,
-                duration: 0
-              };
-            }
-            notes.push(noteData);
-          }
-          currentTime += (1 / measure.length);
-        }
+      for(var i = 0; i < measures.length; i++) {
+        parsedMeasures.push(new Measure(notesPerRow, measures[i]));
       }
+      return parsedMeasures;
+    }
 
-      console.log(notes);
-
-      return notes;
+    private measuresAsJson() {
+      var json = [];
+      for(var i = 0; i < this.values.length; i ++) {
+        json.push(this.values[i].asJson());
+      }
+      return json;
     }
   }
 }
