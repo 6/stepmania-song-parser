@@ -1,5 +1,5 @@
 module SmParser {
-  export interface ISongMetadata {
+  export interface IStepsMetadata {
     isValid(): boolean;
     asJson(): any;
     title: string;
@@ -25,7 +25,7 @@ module SmParser {
     bpms: any;
   }
 
-  export class SongMetadata implements ISongMetadata {
+  export class StepsMetadata implements IStepsMetadata {
     title: string;
     subtitle: string;
     artist: string;
@@ -81,6 +81,18 @@ module SmParser {
       return Helpers.all(this.RequiredFields, (field) => {
         return Helpers.isPresent(this[field]);
       });
+    }
+
+    beatsPerSecond(beat: number) {
+      var sortedBpms = this.bpms.values.sort(function(a, b) {
+        return a.beat - b.beat;
+      });
+      for(var i = 0; i < sortedBpms.length; i++) {
+        if (sortedBpms[i].beat <= beat) {
+          return sortedBpms[i].value;
+        }
+      }
+      return sortedBpms[0].value;
     }
 
     asJson() {

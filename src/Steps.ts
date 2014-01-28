@@ -1,44 +1,40 @@
 module SmParser {
   export class Steps {
-    songMetadata: ISongMetadata;
-    notes: any;
+    stepsMetadata: IStepsMetadata;
+    steps: any;
 
-    constructor(public songString: string) {
-      this.songString = Helpers.preprocessSongFile(songString);
-      this.initializeSongMetadata();
-      this.initializeNotes();
+    constructor(public stepsString: string) {
+      this.stepsString = Helpers.preprocessSongFile(stepsString);
+      this.initializeStepsMetadata();
+      this.initializeSteps();
     }
 
     asJson() {
-      var notesJson = [];
-      for(var i = 0; i < this.notes.length; i++) {
-        notesJson.push(this.notes[i].asJson());
-      }
       return {
-        metadata: this.songMetadata.asJson(),
-        notes: Helpers.map(this.notes, (noteRows) => {
-          return noteRows.asJson();
+        metadata: this.stepsMetadata.asJson(),
+        steps: Helpers.map(this.steps, (song) => {
+          return song.asJson();
         })
       }
     }
 
     isValid() {
-      return this.songMetadata.isValid() && Helpers.all(this.notes, (noteRows) => {
-        return noteRows.isValid();
+      return this.stepsMetadata.isValid() && Helpers.all(this.steps, (song) => {
+        return song.isValid();
       });
     }
 
-    private initializeSongMetadata() {
-      var songMetadataString = this.songString.split(/#NOTES/)[0];
-      this.songMetadata = new SongMetadata(songMetadataString);
+    private initializeStepsMetadata() {
+      var stepMetadataString = this.stepsString.split(/#NOTES/)[0];
+      this.stepsMetadata = new StepsMetadata(stepMetadataString);
     }
 
-    private initializeNotes() {
-      this.notes = [];
-      var notesSections = this.songString.split(/#NOTES:/);
-      notesSections.shift();
-      for(var i = 0; i < notesSections.length; i++) {
-        this.notes.push(new Song(notesSections[i]));
+    private initializeSteps() {
+      this.steps = [];
+      var songs = this.stepsString.split(/#NOTES:/);
+      songs.shift();
+      for(var i = 0; i < songs.length; i++) {
+        this.steps.push(new Song(songs[i]));
       }
     }
   }

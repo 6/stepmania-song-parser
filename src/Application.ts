@@ -4,6 +4,6 @@
 /// <reference path="Note.ts" />
 /// <reference path="Measure.ts" />
 /// <reference path="Song.ts" />
-/// <reference path="SongMetadata.ts" />
+/// <reference path="StepsMetadata.ts" />
 /// <reference path="Steps.ts" />
 /// <reference path="Helpers.ts" />
