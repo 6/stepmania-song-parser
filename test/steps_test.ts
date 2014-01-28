@@ -17,7 +17,7 @@ describe("Song", () => {
         var json = subject.asJson(),
             expectedJson = SongsAsJson['leafticket.sm'];
         expect(json.metadata).toEqual(expectedJson.metadata);
-        expect(json.notes.length).toEqual(expectedJson.notes.length);
+        expect(json.steps.length).toEqual(expectedJson.steps.length);
       });
     });
   });
