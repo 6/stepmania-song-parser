@@ -1,4 +1,4 @@
-describe("Song", () => {
+describe("Steps", () => {
   context("leafticket", () => {
     var subject;
 
